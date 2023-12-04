@@ -3,8 +3,12 @@
 	margin-left: 20px;
 	color: white;
 }
-.title-text{
+.title-text {
 	padding: 10px 10px;
+}
+.ower-title {
+	padding-top: 10px;
+	text-align: center;
 }
 
 .row__posters {
@@ -21,9 +25,9 @@
 }
 
 .row__poster {
-	width: 240px;
+	width: 330px;
 	object-fit: cover;
-	max-height: 330px; 
+	max-height: 430px;
 	transition: transform 450ms;
 	margin-right: 10px;
 }
@@ -33,7 +37,7 @@
 }
 
 .row__posterLarge {
-	max-height: 350px; 
+	max-height: 400px;
 }
 
 .row__posterLarge:hover {
@@ -84,15 +88,32 @@
 	opacity: 0;
 	transition: opacity 0.3s ease-in-out;
 }
-
+.title-text {
+	padding-top: 50px;
+}
 .row__poster:hover .row__title {
 	opacity: 1;
 }
+.close-button {
+	background-color: red;
+	padding: 10px;
+
+	margin-left: 75%;
+	border-radius: 50%;
+}
+.close-button i {
+	color: white;
+	font-size: 20px;
+
+	/* font-size: 70px; */
+}
 
 .row__trailerButton {
-	/* top:90% */
-	margin-top: 100%;
+	/* top:-30% */
+	padding: 10px;
+	margin-top: 80%;
 	bottom: 10px;
+	border-radius: 10px;
 	left: 50%;
 	transform: translateX(-50%);
 	background-color: #e50914;
