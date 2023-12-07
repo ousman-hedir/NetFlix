@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "./Banner.css";
 import baseURL from "../Axios";
 import requests from "../requests";
@@ -46,7 +46,7 @@ function Banner() {
 					<button className="banner__button">My List</button>
 				</div>
 				<h1 className="banner__description">
-					{truncate(movie?.overview, 150)}
+					{truncate(movie?.overview, 180)}
 				</h1>
 			</div>
 			<div className="banner__fadeBottom" />

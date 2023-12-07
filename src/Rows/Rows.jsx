@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+// Row.js
+import { useState, useEffect, useRef } from "react";
 import baseURL from "../Axios";
 import "./Row.css";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
+import MovieOverview from "../MovieOverview/MovieOverview";
 
 const Row = ({ fetchUrl, title, isLargeRow }) => {
 	const [movies, setMovies] = useState([]);
 	const [showButtons, setShowButtons] = useState(false);
 	const [hoveredMovie, setHoveredMovie] = useState(null);
 	const [trailerUrl, setTrailerUrl] = useState("");
-	const [showTitle, setShowTitle] = useState(true);
 	const [showTrailer, setShowTrailer] = useState(false);
 	const [errorTrailerMessage, setErrorTrailerMessage] = useState("");
 	const [hiddenTitle, setHiddenTitle] = useState(null);
-
+	const [selectedMovie, setSelectedMovie] = useState(null);
 
 	const img_url = "https://image.tmdb.org/t/p/original/";
 
@@ -35,15 +36,13 @@ const Row = ({ fetchUrl, title, isLargeRow }) => {
 	const handleMouseEnter = (movie) => {
 		setHoveredMovie(movie);
 		setShowButtons(true);
-		setHiddenTitle(movie.id); 
-		setShowTitle(true);
+		setHiddenTitle(movie.id);
 	};
 
 	const handleMouseLeave = () => {
 		setHoveredMovie(null);
 		setShowButtons(false);
-		setHiddenTitle(null); 
-		setShowTitle(true);
+		setHiddenTitle(null);
 	};
 
 	const scrollLeft = () => {
@@ -59,7 +58,7 @@ const Row = ({ fetchUrl, title, isLargeRow }) => {
 	};
 
 	const opts = {
-		height: "390",
+		height: "500",
 		width: "100%",
 		playerVars: {
 			autoplay: 1,
@@ -75,6 +74,7 @@ const Row = ({ fetchUrl, title, isLargeRow }) => {
 				.then((url) => {
 					const urlParams = new URLSearchParams(new URL(url).search);
 					setTrailerUrl(urlParams.get("v"));
+					setSelectedMovie(movie);
 					setShowTrailer(true);
 					setErrorTrailerMessage("");
 				})
@@ -90,6 +90,7 @@ const Row = ({ fetchUrl, title, isLargeRow }) => {
 	const handleCloseTrailer = () => {
 		setShowTrailer(false);
 		setTrailerUrl("");
+		setSelectedMovie(null);
 	};
 
 	return (
@@ -122,7 +123,7 @@ const Row = ({ fetchUrl, title, isLargeRow }) => {
 							alt={movie.title}
 						/>
 
-						{showTitle && hiddenTitle !== movie.id && (
+						{hiddenTitle !== movie.id && (
 							<h4 className="ower-title">{movie.title}</h4>
 						)}
 
@@ -155,6 +156,13 @@ const Row = ({ fetchUrl, title, isLargeRow }) => {
 						<button className="close-button" onClick={handleCloseTrailer}>
 							<i className="fa-solid fa-xmark"></i>
 						</button>
+						{selectedMovie && (
+							<MovieOverview
+								movie={selectedMovie}
+								onClose={handleCloseTrailer}
+							/>
+						)}
+
 						{trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
 						<h2>{errorTrailerMessage}</h2>
 					</div>
