@@ -136,7 +136,7 @@ const Row = ({ fetchUrl, title, isLargeRow }) => {
 									className="row__trailerButton"
 									onClick={() => handleClick(movie)}
 								>
-									View Trailer
+									Details & Trailer
 								</button>
 							</div>
 						)}
